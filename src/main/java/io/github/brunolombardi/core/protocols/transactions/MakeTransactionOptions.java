@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MakeTransactionDTO {
+public class MakeTransactionOptions {
     private AccountParams originAccount;
     private AccountParams destinationAccount;
     private BigDecimal amount;

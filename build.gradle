@@ -24,7 +24,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.h2database:h2")
-    runtimeOnly("org.mongodb:mongodb-driver-reactivestreams")
+    runtimeOnly("org.mongodb:mongodb-driver-sync")
     testImplementation("org.assertj:assertj-core")
     testImplementation("org.mockito:mockito-core")
     implementation("io.micronaut:micronaut-validation")

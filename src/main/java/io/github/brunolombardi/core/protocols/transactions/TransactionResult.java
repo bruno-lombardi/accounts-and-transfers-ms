@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionResultDTO {
-    String transactionId;
-    TransactionStatus transactionStatus;
-    BigDecimal amount;
+public class TransactionResult {
+    private String transactionId;
+    private TransactionStatus transactionStatus;
+    private BigDecimal amount;
 }
 

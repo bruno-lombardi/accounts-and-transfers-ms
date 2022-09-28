@@ -1,6 +1,5 @@
 package io.github.brunolombardi.core.protocols.accounts;
 
-import io.github.brunolombardi.core.protocols.transactions.AccountTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +20,8 @@ public class Account {
 
     public boolean withdraw(BigDecimal value) {
         var newBalance = getBalance().subtract(value);
-        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
+        var isPositive = newBalance.compareTo(BigDecimal.ZERO) > 0;
+        if (isPositive) {
             setBalance(newBalance);
             return true;
         }

@@ -9,5 +9,4 @@ import java.util.Optional;
 @MongoRepository
 public interface MongoAccountRepository extends CrudRepository<AccountEntity, String> {
     Optional<AccountEntity> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber);
-
 }

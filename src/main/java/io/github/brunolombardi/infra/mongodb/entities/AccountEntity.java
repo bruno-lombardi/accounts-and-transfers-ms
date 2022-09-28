@@ -1,17 +1,18 @@
 package io.github.brunolombardi.infra.mongodb.entities;
 
-import io.github.brunolombardi.core.protocols.accounts.Account;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.annotation.GeneratedValue;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
 @EqualsAndHashCode
@@ -37,25 +38,4 @@ public class AccountEntity {
     @NonNull
     private BigDecimal balance;
 
-    public Account toAccount() {
-        return Account
-                .builder()
-                .id(getId())
-                .accountBranch(getAccountBranch())
-                .accountNumber(getAccountNumber())
-                .holderTaxId(getHolderTaxId())
-                .balance(getBalance())
-                .build();
-    }
-
-    public static AccountEntity fromAccount(Account account) {
-        return AccountEntity
-                .builder()
-                .id(account.getId())
-                .accountBranch(account.getAccountBranch())
-                .accountNumber(account.getAccountNumber())
-                .holderTaxId(account.getHolderTaxId())
-                .balance(account.getBalance())
-                .build();
-    }
 }
