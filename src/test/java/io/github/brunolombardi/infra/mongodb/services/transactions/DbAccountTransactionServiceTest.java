@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @MicronautTest
-public class DbAccountTransactionServiceTest {
+class DbAccountTransactionServiceTest {
 
     @Inject
     private DbAccountTransactionService accountTransactionService;

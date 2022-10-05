@@ -7,7 +7,6 @@ import io.micronaut.data.annotation.MappedEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -15,7 +14,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @Builder
-@EqualsAndHashCode
 @MappedEntity
 public class AccountEntity {
 

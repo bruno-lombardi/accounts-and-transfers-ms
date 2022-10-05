@@ -4,6 +4,7 @@ import io.github.brunolombardi.core.protocols.accounts.Account;
 import io.github.brunolombardi.infra.mongodb.entities.AccountEntity;
 import io.github.brunolombardi.infra.mongodb.repositories.MongoAccountRepository;
 import io.github.brunolombardi.infra.mongodb.services.accounts.DbAccountService;
+import io.github.brunolombardi.test.mocks.AccountMock;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -18,7 +19,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @MicronautTest
-public class DbAccountServiceTest {
+class DbAccountServiceTest {
 
     @Inject
     private DbAccountService accountService;
@@ -32,15 +33,8 @@ public class DbAccountServiceTest {
     }
 
     @Test
-    public void shouldFindAccountByAccountBranchAndAccountNumberIfItExists() {
-        var account = AccountEntity
-                .builder()
-                .id("123123121231")
-                .accountBranch("123")
-                .accountNumber("123")
-                .balance(BigDecimal.valueOf(100.0))
-                .holderTaxId("12312312312")
-                .build();
+    void shouldFindAccountByAccountBranchAndAccountNumberIfItExists() {
+        AccountEntity account = AccountMock.getAccountEntity();
         when(mongoAccountRepository.findByAccountBranchAndAccountNumber(anyString(), anyString()))
                 .thenReturn(Optional.of(account));
         var foundAccount = accountService.findByAccountBranchAndAccountNumber("123", "123");
@@ -54,8 +48,10 @@ public class DbAccountServiceTest {
                 .findByAccountBranchAndAccountNumber(anyString(), anyString());
     }
 
+
+
     @Test
-    public void shouldNotFindAccountByAccountBranchAndAccountNumberIfItDoesNotExists() {
+    void shouldNotFindAccountByAccountBranchAndAccountNumberIfItDoesNotExists() {
         when(mongoAccountRepository.findByAccountBranchAndAccountNumber(anyString(), anyString()))
                 .thenReturn(Optional.empty());
         var foundAccount = accountService.findByAccountBranchAndAccountNumber("123", "123");
@@ -66,7 +62,7 @@ public class DbAccountServiceTest {
     }
 
     @Test
-    public void shouldSaveAccount() {
+    void shouldSaveAccount() {
         when(mongoAccountRepository.save(any(AccountEntity.class)))
                 .thenReturn(mock(AccountEntity.class));
         var accountToSave = Account
