@@ -5,7 +5,7 @@ metadata:
     app: accounts-and-transfers
   name: accounts-and-transfers
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: accounts-and-transfers
@@ -24,3 +24,5 @@ spec:
           env:
             - name: MONGO_URI
               value: "mongodb://mongodb-0.mongodb-headless.default.svc.cluster.local:27017/accounts-and-transfers"
+            - name: RABBITMQ_URI
+              value: "amqp://user:JwSmlVml6BFfibCj@rabbitmq.default.svc.cluster.local:5672"

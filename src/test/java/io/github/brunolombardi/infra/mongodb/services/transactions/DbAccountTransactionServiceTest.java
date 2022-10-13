@@ -1,6 +1,7 @@
 package io.github.brunolombardi.infra.mongodb.services.transactions;
 
 import io.github.brunolombardi.core.protocols.transactions.AccountTransaction;
+import io.github.brunolombardi.core.protocols.transactions.AccountTransactionCreatedEvent;
 import io.github.brunolombardi.core.protocols.transactions.TransactionStatus;
 import io.github.brunolombardi.infra.mongodb.entities.AccountTransactionEntity;
 import io.github.brunolombardi.infra.mongodb.repositories.MongoAccountTransactionRepository;
@@ -8,6 +9,7 @@ import io.github.brunolombardi.infra.mongodb.services.transactions.DbAccountTran
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
@@ -48,7 +50,14 @@ class DbAccountTransactionServiceTest {
         accountTransactionService.save(accountTransaction);
         verify(mongoAccountTransactionRepository, times(1))
                 .save(any(AccountTransactionEntity.class));
+    }
 
+    @Test
+    void shouldPublishAccountTransactionCreatedEvent() {
+        var accountTransactionCreatedEvent = AccountTransactionCreatedEvent.builder().build();
+        Assertions.assertDoesNotThrow(() -> {
+            accountTransactionService.publishAccountTransactionCreatedEvent(accountTransactionCreatedEvent);
+        });
     }
 
 }
