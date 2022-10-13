@@ -1,8 +1,8 @@
 package io.github.brunolombardi.core.protocols.accounts;
 
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 public interface AccountService {
-    Optional<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber);
-    Account save(Account account);
+    Mono<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber);
+    Mono<Account> save(Account account);
 }

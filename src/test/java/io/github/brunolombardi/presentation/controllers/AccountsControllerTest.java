@@ -9,6 +9,7 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -17,24 +18,24 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class AccountsControllerTest {
 
     @Inject
     private AccountsClient accountsClient;
 
     @Inject
-    private MongoAccountRepository mongoAccountRepository;
+    private AccountService accountService;
 
-    @MockBean(MongoAccountRepository.class)
-    private MongoAccountRepository mongoAccountRepositoryMock() {
-        return mock(MongoAccountRepository.class);
+    @MockBean(AccountService.class)
+    private AccountService accountServiceMock() {
+        return mock(AccountService.class);
     }
 
     @Test
     void shouldReturnEmptyIfAccountDoesNotExist() {
-        doReturn(Optional.empty())
-                .when(mongoAccountRepository).findByAccountBranchAndAccountNumber(anyString(), anyString());
+        doReturn(Mono.empty())
+                .when(accountService).findByAccountBranchAndAccountNumber(anyString(), anyString());
         var accountResponse = accountsClient.findAccount("123", "123456");
         assertFalse(accountResponse.isPresent());
     }
@@ -42,8 +43,8 @@ class AccountsControllerTest {
     @Test
     void shouldReturnAccount() {
         AccountEntity accountMock = AccountMock.getAccountEntity();
-        doReturn(Optional.of(accountMock))
-                .when(mongoAccountRepository).findByAccountBranchAndAccountNumber(anyString(), anyString());
+        doReturn(Mono.just(accountMock))
+                .when(accountService).findByAccountBranchAndAccountNumber(anyString(), anyString());
         var accountResponse = accountsClient.findAccount("123", "123456");
         assertTrue(accountResponse.isPresent());
         var account = accountResponse.get();

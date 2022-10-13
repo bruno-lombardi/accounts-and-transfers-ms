@@ -7,6 +7,8 @@ import io.github.brunolombardi.infra.mongodb.entities.AccountTransactionEntity;
 import io.github.brunolombardi.infra.mongodb.repositories.MongoAccountTransactionRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Singleton
 public class DbAccountTransactionService implements AccountTransactionService {
@@ -15,15 +17,15 @@ public class DbAccountTransactionService implements AccountTransactionService {
     MongoAccountTransactionRepository mongoAccountTransactionRepository;
 
     @Override
-    public AccountTransaction save(AccountTransaction accountTransaction) {
-        var transaction = mongoAccountTransactionRepository
+    public Flux<AccountTransaction> save(AccountTransaction accountTransaction) {
+        var transaction = (Flux<AccountTransactionEntity>) mongoAccountTransactionRepository
                 .save(AccountTransactionEntity.fromAccountTransaction(accountTransaction));
-        return transaction.toAccountTransaction();
+        return transaction.map(AccountTransactionEntity::toAccountTransaction);
     }
 
     @Override
-    public void publishAccountTransactionCreatedEvent(AccountTransactionCreatedEvent transactionCreatedEvent) {
-
+    public Mono<Void> publishAccountTransactionCreatedEvent(AccountTransactionCreatedEvent transactionCreatedEvent) {
+        return null;
     }
 
 }

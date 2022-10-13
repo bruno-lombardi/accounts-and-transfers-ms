@@ -31,6 +31,17 @@ class AccountTests {
     }
 
     @Test
+    void shouldWithdrawIfFinalBalanceIsZero() {
+        var account = Account
+                .builder()
+                .balance(BigDecimal.valueOf(1.0))
+                .build();
+        var isSuccessful = account.withdraw(BigDecimal.valueOf(1.0));
+        assertTrue(isSuccessful);
+        assertEquals(BigDecimal.valueOf(0.0), account.getBalance());
+    }
+
+    @Test
     void shouldAddToBalanceWhenDeposit() {
         var account = Account
                 .builder()

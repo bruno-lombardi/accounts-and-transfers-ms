@@ -1,5 +1,7 @@
 package io.github.brunolombardi.core.protocols.transactions;
 
+import reactor.core.publisher.Mono;
+
 public interface MakeTransactionUseCase {
-    TransactionResult makeTransaction(MakeTransactionOptions makeTransactionOptions);
+    Mono<TransactionResult> makeTransaction(MakeTransactionOptions makeTransactionOptions);
 }

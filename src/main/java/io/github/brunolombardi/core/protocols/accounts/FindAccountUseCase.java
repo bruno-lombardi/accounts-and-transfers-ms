@@ -1,7 +1,7 @@
 package io.github.brunolombardi.core.protocols.accounts;
 
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 public interface FindAccountUseCase {
-    Optional<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber);
+    Mono<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber);
 }

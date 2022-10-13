@@ -5,8 +5,7 @@ import io.github.brunolombardi.core.protocols.accounts.AccountService;
 import io.github.brunolombardi.core.protocols.accounts.FindAccountUseCase;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-
-import java.util.Optional;
+import reactor.core.publisher.Mono;
 
 @Singleton
 public class DbFindAccountUseCase implements FindAccountUseCase {
@@ -15,7 +14,7 @@ public class DbFindAccountUseCase implements FindAccountUseCase {
     private AccountService accountService;
 
     @Override
-    public Optional<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber) {
+    public Mono<Account> findByAccountBranchAndAccountNumber(String accountBranch, String accountNumber) {
         return accountService.findByAccountBranchAndAccountNumber(accountBranch, accountNumber);
     }
 }

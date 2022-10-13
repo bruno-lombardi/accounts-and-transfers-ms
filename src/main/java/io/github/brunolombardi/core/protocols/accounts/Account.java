@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,7 @@ public class Account {
 
     public boolean withdraw(BigDecimal value) {
         var newBalance = getBalance().subtract(value);
-        var isPositive = newBalance.compareTo(BigDecimal.ZERO) > 0;
+        var isPositive = newBalance.compareTo(BigDecimal.ZERO) >= 0;
         if (isPositive) {
             setBalance(newBalance);
             return true;
@@ -33,4 +34,16 @@ public class Account {
         setBalance(newBalance);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(id, account.id) && accountBranch.equals(account.accountBranch) && accountNumber.equals(account.accountNumber) && holderTaxId.equals(account.holderTaxId) && balance.equals(account.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, accountBranch, accountNumber, holderTaxId);
+    }
 }

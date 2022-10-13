@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.*;
 @OpenAPIDefinition(
     info = @Info(
             title = "accounts-and-transfers-ms",
-            version = "0.1.0"
+            version = "0.2.1"
     )
 )
 public class Application {

@@ -1,6 +1,7 @@
 package io.github.brunolombardi.infra.mongodb.entities;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.ReflectiveAccess;
 import io.micronaut.data.annotation.GeneratedValue;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @Data
 @Builder
 @MappedEntity
+@ReflectiveAccess
 public class AccountEntity {
 
     @Id

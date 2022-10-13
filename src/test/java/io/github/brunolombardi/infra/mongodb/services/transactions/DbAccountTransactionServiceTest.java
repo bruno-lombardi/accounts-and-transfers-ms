@@ -9,6 +9,7 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@MicronautTest
+@MicronautTest(transactional = false)
 class DbAccountTransactionServiceTest {
 
     @Inject
@@ -32,9 +33,9 @@ class DbAccountTransactionServiceTest {
     }
 
     @Test
-    public void shouldSaveAccountTransaction() {
+    void shouldSaveAccountTransaction() {
         when(mongoAccountTransactionRepository.save(any(AccountTransactionEntity.class)))
-                .thenReturn(mock(AccountTransactionEntity.class));
+                .thenReturn(Flux.just(mock(AccountTransactionEntity.class)));
         var accountTransaction = AccountTransaction
                 .builder()
                 .destinationAccountId("123")

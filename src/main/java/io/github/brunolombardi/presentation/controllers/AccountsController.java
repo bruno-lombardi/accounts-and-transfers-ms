@@ -10,10 +10,10 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @Controller("/accounts")
 @ExecuteOn(TaskExecutors.IO)
@@ -25,7 +25,7 @@ public class AccountsController {
     private static final Logger LOG = LoggerFactory.getLogger(AccountsController.class);
 
     @Get("/{branch}/{accountNumber}")
-    public Optional<Account> findAccount(
+    public Mono<Account> findAccount(
             @PathVariable("branch") @NotNull @NotBlank String branch,
             @PathVariable("accountNumber") @NotNull @NotBlank String accountNumber
     ) {
